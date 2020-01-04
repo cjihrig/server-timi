@@ -24,7 +24,7 @@
   "devDependencies": {
     "belly-button": "6.x.x",
     "@hapi/hapi": "18.x.x",
-    "lab": "18.x.x"
+    "@hapi/lab": "22.x.x"
   },
   "keywords": [
     "hapi",

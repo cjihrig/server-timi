@@ -1,12 +1,9 @@
 'use strict';
 const Assert = require('assert');
 const Hapi = require('@hapi/hapi');
-const Lab = require('lab');
+const Lab = require('@hapi/lab');
 const Timi = require('../lib');
-
-// Test shortcuts
-const lab = exports.lab = Lab.script();
-const { describe, it } = lab;
+const { describe, it } = exports.lab = Lab.script();
 
 
 async function getServer () {
