@@ -1,6 +1,6 @@
 'use strict';
 const Assert = require('assert');
-const Hapi = require('hapi');
+const Hapi = require('@hapi/hapi');
 const Lab = require('lab');
 const Timi = require('../lib');
 
