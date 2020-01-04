@@ -1,5 +1,6 @@
 'use strict';
 const Assert = require('assert');
+const Boom = require('@hapi/boom');
 const Hapi = require('@hapi/hapi');
 const Lab = require('@hapi/lab');
 const Timi = require('../lib');
@@ -8,6 +9,15 @@ const { describe, it } = exports.lab = Lab.script();
 
 async function getServer () {
   const server = Hapi.server();
+
+  // This extension should be setup before registering the plugin.
+  server.ext('onRequest', (request, h) => {
+    if (request.path === '/throws-before-onrequest-handler') {
+      throw Boom.teapot('test error');
+    }
+
+    return h.continue;
+  });
 
   await server.register({ plugin: Timi });
 
@@ -80,5 +90,13 @@ describe('Server Timing', () => {
 
     Assert.strictEqual(regex.test(res.headers['server-timing']), true);
     Assert.strictEqual(res.statusCode, 500);
+  });
+
+  it('handles onRequest handlers that throw before timings are setup', async () => {
+    const server = await getServer();
+    const res = await server.inject({ method: 'GET', url: '/throws-before-onrequest-handler' });
+
+    Assert.strictEqual(res.headers['server-timing'], undefined);
+    Assert.strictEqual(res.statusCode, 418);
   });
 });
