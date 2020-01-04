@@ -16,14 +16,13 @@
   "scripts": {
     "lint": "belly-button -f",
     "pretest": "npm run lint",
-    "test": "lab -v -a code -t 100"
+    "test": "lab -v -t 100"
   },
   "engines": {
     "node": ">=8.0.0"
   },
   "devDependencies": {
     "belly-button": "5.x.x",
-    "code": "5.x.x",
     "hapi": "18.x.x",
     "lab": "18.x.x"
   },
